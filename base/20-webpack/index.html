@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+  <h1>坑爹的版本不兼容，不能使用默认的版本，以下是验证可行的版本组合</h1>
+  <h2>webpack@3.6.0</h2>
+  <h2>css-loader@0.28.7</h2>
+  <h2>style-loader@0.23.1</h2>
+  <h2>less@3.9.0</h2>
+  <h2>less-loader@4.1.0</h2>
+  <h2>url-loader@1.1.2</h2>
+  <h2>file-loader@2.0.0</h2>
+
+  <h2>es6 转 es5 ,还得装babel;命令:npm install --save-dev babel-loader@7 babel-core babel-pres
+    et-es2015
+  </h2>
+
+
+  <h4>安装上面的loader之后，还得配置webpack.config.js</h4>
+
+  <h2>正式引入vue 开发,运行环境都要使用vue,不要--save-dev,要--save, 命令:npm install --save vue@2.5.21</h2>
+
+
+  runtime-only版本 不可以用任何template
+  runtime-compiler版本 可以有template
+  <h2>{{msg}}</h2>
+  
+</div>
+<!--.js要放在id="app"的下面,因为要用到"app"-->
+<script src="./dist/bundle.js"></script>
+</body>
+</html>

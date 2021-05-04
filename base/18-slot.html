@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <h2>{{msg}}</h2>
+  <cpn></cpn>
+
+  <cpn>
+    <span slot="center">xixi</span>
+    <input type="text" slot="right">
+  </cpn>
+
+
+  <cpn>
+    <template v-slot:center>haha</template>
+  </cpn>
+
+  <cpn>
+    <template #center>hoho</template>
+    <input type="text" slot="right" placeholder="right">
+  </cpn>
+
+  <!--获取子组件的数据 2.6.0以后slot-scope已经弃用-->
+  <cpn2>
+  <template slot-scope="slot">
+    <span>{{slot.list.join('-')}}</span>
+  </template>
+</cpn2>
+
+  <!--使用v-slot代替slot-scope，还可以简写为#-->
+  <cpn3>
+    <!--<template  v-slot:center="slot">-->
+    <!--简写-->
+    <template #center="slot">
+      <span>{{slot.list.join('-')}}</span>
+    </template>
+  </cpn3>
+</div>
+</body>
+
+<template id="cpn">
+  <div>
+
+    <h4>子组件</h4>
+    <!--里面是默认值，使用的时候不写就用默认的-->
+    <!--一个不带 name 的 <slot> 出口会带有隐含的名字“default”。-->
+    <slot><button>按钮</button></slot>
+    <slot name="center"><button>具名插槽</button></slot>
+    <slot name="right"><button>具名插槽</button></slot>
+
+
+    <slot name="last"  v-bind:myData="list">
+      <ul>
+      <li v-for="item in list">{{item}}</li>
+      </ul>
+    </slot>
+  </div>
+</template>
+
+<template id="cpn2">
+  <div>
+    <slot :list="list">
+      <ui>
+        <li v-for="item in list">{{item}}</li>
+      </ui>
+    </slot>
+  </div>
+
+</template>
+
+<template id="cpn3">
+  <div>
+    <slot name="center" :list="list">
+      <ui>
+        <li v-for="item in list">{{item}}</li>
+      </ui>
+    </slot>
+  </div>
+
+</template>
+
+<script src="./vue.js"></script>
+<script>
+  const cpn={
+    template:"#cpn",
+    data(){
+      return {
+        list: ['a', 'b', 'c']
+      }
+    }
+  }
+  const cpn2={
+    template:"#cpn2",
+    data(){
+      return {
+        list: ['a', 'b', 'c']
+      }
+    }
+  }
+
+  const cpn3={
+    template:"#cpn3",
+    data(){
+      return {
+        list: ['A', 'B', 'C']
+      }
+    }
+  }
+
+  const app = new Vue({
+    el: '#app',
+    data: {
+      msg: 'hello'
+    },
+    methods:{
+    },
+    components:{
+      cpn,
+      cpn2,
+      cpn3
+    }
+  })
+
+
+</script>
+
+</html>
