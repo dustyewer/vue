@@ -12,9 +12,9 @@
     "fastclick": "^1.0.6",
     "stylus-loader": "^3.0.2",
     "swiper": "^5.0.0",
-    "vue": "^3.0.0",
     "vue-awesome-swiper": "^4.1.1",
     "vue-router": "^4.0.0-0",
+    "vue-template-compiler": "^2.6.12",
     "vuex": "^4.0.0-0"
   },
   "devDependencies": {
@@ -29,6 +29,7 @@
     "eslint-plugin-vue": "^7.0.0",
     "style-resources-loader": "^1.4.1",
     "stylus": "^0.54.8",
+    "vue": "^2.6.12",
     "vue-cli-plugin-style-resources-loader": "~0.1.5"
   },
   "eslintConfig": {
