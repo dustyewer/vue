@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    .isSelect {
+      color:red
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <h1>谜团解开了!!数组修改不是响应式的......</h1>
+  <!--我的两种方式都不行-->
+  <ul>
+    <li v-for="(m,index) in mo" @click="clickFun(index)" :class="select(index)">{{m}}</li>
+  </ul>
+
+  <ul>
+    <li v-for="(m,index) in mo" @click="clickFun(index)" :class="{isSelect:selected[index]}">{{m}}</li>
+  </ul>
+
+  <!--可行的方法-->
+  <ul>
+    <li v-for="(m,index) in mo" @click="clickFun(index)"
+        :class="{isSelect:curr===index}">{{m}}</li>
+  </ul>
+  <ul>
+    <!--<li v-for="(m,index) in mo" @click="clickFun(index)"-->
+        <!--:class="newSelect(index)">{{m}}</li>-->
+  <!--</ul>-->
+
+</div>
+</body>
+
+<script src="./vue.js"></script>
+<script>
+  const app = new Vue({
+    el: "#app",
+    data: {
+      mo: [
+        "abc",
+        "efd",
+        "wwww"
+      ],
+      selected:[false,true,false],
+      // 可行的答案
+      curr:0
+
+    },
+    methods:{
+      clickFun: function (index) {
+        for(let i=0;i<this.selected.length;i++) {
+          this.selected[i] = false
+          //Vue.set是响应式的,是可以的
+          // Vue.set(this.selected,i, false)
+        }
+        this.selected[index]=true
+        // Vue.set(this.selected,index,true)
+
+        console.log(this.selected);
+        // //可行的答案
+        // this.curr=index
+
+
+      },
+      //这个方法不行,返回一个对象,不能实现随着点击变化 把数组放到class的结果里也不行
+      select:function (index) {
+        return  {isSelect:this.selected[index]}
+      },
+      //同样是返回对象,使用curr和index比较的结果就可以
+      newSelect:function (index) {
+        return {isSelect:this.curr===index}
+
+      }
+      //更奇怪的是加了可以正常运行的代码后,原来不正常的也能在一定的情况触发后也能正常使用.
+    }
+  })
+</script>
+</html>

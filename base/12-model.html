@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <h2>{{msg}}</h2>
+  <!--双向绑定-->
+  <div>
+    <input type="text" v-model="msg">{{msg}}
+  </div>
+
+  <!--手工实现v-model-->
+  <!--v-bind绑定从数据到界面 另外还需要处理界面事件,抓取事件的内容改写数据-->
+  <input type="text" v-bind:value="msg" v-on:input="change">
+  <br/>
+  <input type="text" :value="msg" @input="msg=$event.target.value">
+  <br/>
+  <label for="male">
+    <input type="radio" id="male" name="sex" value="男" v-model="sex">男
+  </label>
+  <label for="female">
+    <input type="radio" id="female" name="sex" value="女" v-model="sex">女
+  </label>
+  <h4>你选择的是:{{sex}}</h4>
+
+
+  <label for="license">
+    <input type="checkbox" id="license" v-model="isAgree">同意协议
+  </label>
+  <h4>你选择的是:{{isAgree}}</h4>
+  <button :disable="!isAgree">next</button>
+
+
+  <div>
+    <input type="checkbox" value="x" v-model="hobbies">x
+    <input type="checkbox" value="y" v-model="hobbies">y
+    <input type="checkbox" value="z" v-model="hobbies">z
+
+    <h4>你选择的是:{{hobbies}}</h4>
+  </div>
+
+  <div>
+    <select name="abc"  v-model="fruit">
+      <option value="apple" >apple</option>
+      <option value="banan" >banan</option>
+      <option value="stawberry" >stawberry</option>
+    </select>
+    <h4>你选择的是:{{fruit}}</h4>
+
+    <select name="abc"  v-model="fruits" multiple>
+      <option value="apple" >apple</option>
+      <option value="banan" >banan</option>
+      <option value="stawberry" >stawberry</option>
+    </select>
+    <h4>你选择的是:{{fruits}}</h4>
+  </div>
+
+  <label v-for="item in allHobbies" :for="item">
+    <input type="checkbox" :value="item" :id="item" v-model="hobbies">{{item}}
+  </label>
+  <h4>你选择的是:{{hobbies}}</h4>
+
+
+  <!--修饰符,在回车 和失去焦点是才生效-->
+  <input type="text" v-model.lazy="msg">
+  <h2>{{msg}}</h2>
+
+<!--限定类型-->
+  <input type="text" v-model.number="age">
+  <h2>{{age}}-{{typeof age}}</h2>
+<!--去空格-->
+  <input type="text" v-model.trim="msg">
+  <h4>{{msg}}</h4>
+
+</div>
+</body>
+
+<script src="./vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      msg: 'hello',
+      sex: '男',
+      age:18,
+      isAgree: false,
+      hobbies: [],
+      allHobbies: ['football','basketball','goalf','fish'],
+      fruit:'apple',
+      fruits:[]
+    },
+    methods: {
+      change(event) {
+        this.msg = event.target.value
+
+      }
+    }
+  })
+</script>
+
+</html>

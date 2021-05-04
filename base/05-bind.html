@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    .active {
+      color: red
+    }
+
+    .line {
+      font-size: 50px
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <!--错误写法-->
+  <!--<img src="{{imgURL}}" alt="">-->
+
+  <!--正确写法-->
+  <img v-bind:src="imgURL" alt="">
+  <a v-bind:href="aHref">百度</a>
+  <!--简写-->
+  <img :src="imgURL" alt="">
+
+  <!--class里的key-value对,value只能是boolean-->
+  <h2 v-bind:class="{active:isactive,line:isLine}">{{msg}}</h2>
+  <button @click="btnClick">isLine</button>
+  <!--简写 + 对象语法-->
+  <h2 :class="getClass()">{{msg}}</h2>
+  <h2 class="title" :class="[active,line]">数组语法</h2>
+  <!--样式里面的key-value对,value是字符串,要加''-->
+  <!--50px要加''-->
+  <h3 :style="{fontSize: '50px'}">{{msg}}</h3>
+  <h3 :style="{fontSize: finalSize+'px', color: finalColor}">{{msg}}</h3>
+
+</div>
+
+</body>
+<script src="./vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      msg: 'hello',
+      imgURL: "https://dss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/weather/icons/a1.png",
+      aHref: 'http://www.baidu.com',
+      isactive: true,
+      isLine: true,
+      active: 'aaa',
+      line: 'bbb',
+      finalSize: 10,
+      finalColor: 'blue'
+
+    },
+    methods: {
+      btnClick: function () {
+        this.isLine = !this.isLine
+      },
+      // 对象语法
+      getClass: function () {
+        return {active: this.isactive, line: this.isLine}
+      }
+    }
+  })
+</script>
+</html>

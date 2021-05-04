@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+
+<body>
+<div id="app">
+  {{msg}}
+  <ul>
+    <!--加上一个 :key 属性 让vue更好的复用-->
+    <li v-for="item in mp4" :key="item">{{item}}</li>
+  </ul>
+  <button @click="btnClick">1</button>
+
+  <ul>
+    <li v-for="item in person">{{item}}</li>
+  </ul>
+
+  <ul>
+    <li v-for="(value,key) in person">{{key}} {{value}}</li>
+  </ul>
+</div>
+</body>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      msg: 'cs',
+      mp4: ['w', 'b', 'c','d','e'],
+      person:{
+        name:'yewer',
+        age:18,
+        heigh:160
+      }
+    },
+    methods:{
+      btnClick(){
+        // push方法 尾部新增
+        // this.mp4.push("f")
+        //pop() 尾部删除
+        // this.mp4.pop()
+        // //shift 头部删除
+        // this.mp4.shift()
+        // unshift 头部新增
+        // this.mp4.unshift('f')
+        //splice(start,) 可删除 可插入 可替换
+        //start 表示操作位置
+        //第二参数表示删除 多少个,不写就是后面全部删除 写0就是不删除
+        //splice(2) 从第二个开始删除后面,splice(2,3)从第二个开始删除3个
+        // splice(2,0,'a','b')从第二个开始不删除,插入剩下的参数
+        // splice(1,3,'w')从第一个开始删除3个,并在第二个位置上加上一个'w',然后后面的元素接上来
+        // 第3个之后的参数,就是要插入的内容.
+        // 删除掉了后面的元素要补上了,中间不会有空的
+        // this.mp4.splice(1,3)
+        //sort
+        // this.mp4.sort()
+        //reverse
+        // this.mp4.reverse()
+
+
+        //通过索引修改不能触发修改界面
+        // this.mp4[0]='0'
+
+        Vue.set(this.mp4,0,'z')
+      }
+    }
+  })
+</script>
+</html>
+

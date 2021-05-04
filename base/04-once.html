@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    /*[v-cloak] {*/
+      /*display:none*/
+    /*}*/
+  </style>
+</head>
+<body>
+<div id="app" v-cloak>
+  <p>{{hello}}</p>
+  <p v-once>{{hello}}</p>
+  <p v-pre>{{hello}}</p>
+  <h1 >{{url}}</h1>
+  <h1 v-html="url"></h1>
+  <h1 v-text="url"></h1>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  //在vue解析之前,div中有一个属性v-cloak
+  //在vue解析之后,div中没有一个属性v-cloak
+  setTimeout(function () {
+
+
+  const app = new Vue({
+    el:"#app",
+    data:{
+      hello:'hello yewer3',
+      url:'<a href="http://www.baidu.com">百度</a>'
+    }
+  })
+  },1000)
+  </script>
+</html>
