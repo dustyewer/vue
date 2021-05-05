@@ -31,7 +31,12 @@ const routes = [
   {
     path: '/about',
     name: 'About',
-    component: About
+    component: About,
+    // 路由独享守卫
+    beforeEnter: (to, from, next) =>{
+      console.log('about')
+      next()
+    }
   },
   {
     path: '/user/:userId',
@@ -50,9 +55,21 @@ const routes = [
   }
 ]
 
-export default new Router({
+const router = new Router({
   routes,
   // 默认是hash模式,路径中有# ,比如localhost:8080/#/home
   // 改成h5的history就没有了
   mode: 'history'
 })
+// 导航守卫
+router.beforeEach((to, from, next) => {
+  console.log('before')
+  document.title = to.name
+  next()
+})
+
+router.afterEach((to, from) =>{
+  console.log('after')
+})
+
+export default router

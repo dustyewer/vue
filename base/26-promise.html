@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+
+</div>
+</body>
+
+<script>
+
+  // setTimeout(() => {
+  //   console.log('hello')
+  // },2000)
+
+  // 写法1: then
+  new Promise((resolve, reject) => {
+    // 第一次网络请求的代码
+    setTimeout(() => {
+      resolve()
+    }, 2000)
+  }).then(() => {
+    // 第一次拿到结果的处理代码
+    console.log('hello')
+
+    return new Promise((resolve, reject) => {
+      // 第二次网络请求的代码
+      setTimeout(() => {
+        resolve()
+      }, 2000)
+    }).then(() => {
+      // 第二次拿到结果的处理代码
+      console.log('hello')
+    })
+  })
+  // 写法2:then(函数1,函数2)
+  // 函数1处理resolve的结果 函数2处理reject的结果
+  new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve('hello')
+      reject('error')
+    }, 2000)
+  }).then(data => {
+    console.log(data)
+  }, error => {
+    console.log(error)
+  })
+
+  // all可以等待多个异步请求
+  Promise.all([
+    new Promise((resolve,reject) => {
+      setTimeout(() => {
+        resolve("res1")
+      },2000)
+    }),
+    new Promise((resolve,reject) => {
+      setTimeout(() => {
+        resolve({name: 'yewer', age:18})
+      },3000)
+    })
+  ]).then(results => {
+    console.log(results)
+  })
+
+
+</script>
+
+</html>

@@ -8,7 +8,11 @@
     <button @click="btnClick">使用函数</button>
     <router-link v-bind:to="'/user/'+userId">user</router-link>
     <router-link :to="{path:'/profile',query:{name:'yewer'}}">profile</router-link>
-    <router-view></router-view>
+    <!--keep-alive包起来后就不会销毁,要不然跳到其他页面,原来的页面都会销毁-->
+    <!--exclude的除外-->
+    <keep-alive exclude="Profile,User">
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 
