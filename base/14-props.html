@@ -7,7 +7,7 @@
 <body>
 <div id="app">
   <h2>父组件给子组件传递数据</h2>
-  <cpn v-bind:cmovies="movies" :cmsg="msg"></cpn>
+  <cpn v-bind:cmovies="movies" :cmsg="msg" :cnum="num"></cpn>
   <!--2.0不支持驼峰-->
   <!--<cpn2 v-bind:cInfo="info"></cpn2>-->
   <cpn2 v-bind:c-info="info"></cpn2>
@@ -19,8 +19,12 @@
   <div>
     <h5>{{cmsg}}</h5>
     <h4>{{cmovies}}</h4>
+    <h6>{{cnum}}</h6>
     <ul>
       <li v-for="item in cmovies">{{item}}</li>
+    </ul>
+    <ul>
+      <li v-for="index of cnum"></li>
     </ul>
   </div>
 </template>
@@ -55,9 +59,11 @@
         default() {
           return []
         }
+      },
+      cnum: {
+        type: Number,
+        default: 2
       }
-
-
     }
   }
   const cpn2 = {
@@ -67,7 +73,6 @@
         type: Object,
         default() {
         }
-
       }
     }
   }
@@ -80,7 +85,8 @@
       info: {
         name: 'xyz',
         age: 18
-      }
+      },
+      num:5
     },
     methods: {},
     components: {

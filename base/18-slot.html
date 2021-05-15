@@ -6,14 +6,14 @@
 </head>
 <body>
 <div id="app">
-  <h2>{{msg}}</h2>
+  <h4>{{slotNum}}</h4>
+  <h2 v-for="index of 2">{{msg}}</h2>
   <cpn></cpn>
 
   <cpn>
     <span slot="center">xixi</span>
     <input type="text" slot="right">
   </cpn>
-
 
   <cpn>
     <template v-slot:center>haha</template>
@@ -39,6 +39,11 @@
       <span>{{slot.list.join('-')}}</span>
     </template>
   </cpn3>
+
+  <!--2.0不支持驼峰-->
+  <cpn4 :shitnum="num">
+    <template #slot1>xxxxxx</template>
+  </cpn4>
 </div>
 </body>
 
@@ -51,7 +56,6 @@
     <slot><button>按钮</button></slot>
     <slot name="center"><button>具名插槽</button></slot>
     <slot name="right"><button>具名插槽</button></slot>
-
 
     <slot name="last"  v-bind:myData="list">
       <ul>
@@ -69,7 +73,6 @@
       </ui>
     </slot>
   </div>
-
 </template>
 
 <template id="cpn3">
@@ -80,7 +83,14 @@
       </ui>
     </slot>
   </div>
+</template>
 
+<template id="cpn4">
+  <div >
+    <slot v-for="index of shitnum" :name="getSlotName(index)" >
+      {{getSlotName(index)}}
+    </slot>
+  </div>
 </template>
 
 <script src="./vue.js"></script>
@@ -111,17 +121,34 @@
     }
   }
 
+  const cpn4={
+    template:"#cpn4",
+    props: {
+      shitnum: {
+        type: Number,
+        default: 2
+      }
+    },
+    methods: {
+      getSlotName(index) {
+        return 'slot'+index
+      }
+    }
+  }
+
   const app = new Vue({
     el: '#app',
     data: {
-      msg: 'hello'
+      msg: 'hello',
+      num: 4
     },
     methods:{
     },
     components:{
       cpn,
       cpn2,
-      cpn3
+      cpn3,
+      cpn4
     }
   })
 
